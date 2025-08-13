@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ChevronDown, Clock, CheckCircle } from 'lucide-react';
+import React from 'react';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 import { Case } from '../types';
 import { cn } from '../utils/cn';
 
@@ -34,9 +34,9 @@ const CaseAccordion: React.FC<CaseAccordionProps> = ({
 
   const getStatusIcon = () => {
     return status === 'open' ? (
-      <Clock className="h-4 w-4 text-yellow-500" />
+      <ChevronRight className="h-4 w-4 text-yellow-500" />
     ) : (
-      <CheckCircle className="h-4 w-4 text-green-500" />
+      <ChevronRight className="h-4 w-4 text-green-500" />
     );
   };
 

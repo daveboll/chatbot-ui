@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import LeftPanel from './components/LeftPanel';
 import ChatPanel from './components/ChatPanel';
 import RightPanel from './components/RightPanel';
+import TestComponent from './components/TestComponent';
+import SimpleTest from './SimpleTest';
 import { Case, Chat } from './types';
 import { mockCases, mockChats } from './utils/mockData';
 
@@ -11,6 +13,7 @@ function App() {
   const [chats, setChats] = useState<Chat[]>(mockChats);
   const [currentChat, setCurrentChat] = useState<Chat | null>(mockChats[0]);
   const [expandedAccordion, setExpandedAccordion] = useState<'open' | 'resolved' | null>('open');
+  const [isLeftPanelCollapsed, setIsLeftPanelCollapsed] = useState(false);
 
   const handleCaseSelect = (caseItem: Case) => {
     setSelectedCase(caseItem);
@@ -72,16 +75,33 @@ function App() {
     }
   };
 
+  const toggleLeftPanel = () => {
+    setIsLeftPanelCollapsed(!isLeftPanelCollapsed);
+  };
+
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-red-500">
+      {/* Test Component */}
+      <TestComponent />
+      
+      {/* Simple Test */}
+      <SimpleTest />
+      
+      {/* Simple Test Banner */}
+      <div className="fixed top-0 right-0 z-50 bg-green-500 text-white p-2 m-4 rounded shadow-lg">
+        🎯 APP COMPONENT UPDATED - {new Date().toLocaleTimeString()}
+      </div>
+      
       {/* Left Panel - Case Navigation */}
-      <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
+      <div className="relative">
         <LeftPanel 
           cases={cases}
           selectedCase={selectedCase}
           onCaseSelect={handleCaseSelect}
           expandedAccordion={expandedAccordion}
           onAccordionToggle={handleAccordionToggle}
+          isCollapsed={isLeftPanelCollapsed}
+          onToggleCollapse={toggleLeftPanel}
         />
       </div>
 

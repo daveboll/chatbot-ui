@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { AlertTriangle, CheckCircle, XCircle, Clock, FileText, Plus, Save, Wrench, Ban, Bug } from 'lucide-react';
-import { Case, Chat, Fault, FaultStatus } from '../types';
+import { AlertTriangle, CheckCircle, XCircle, Clock, FileText } from 'lucide-react';
+import { Case, Chat, Fault } from '../types';
 import { mockFaults } from '../utils/mockData';
 import { cn } from '../utils/cn';
 
@@ -18,7 +18,7 @@ const RightPanel: React.FC<RightPanelProps> = ({ selectedCase, currentChat, onCa
   const [editingNotes, setEditingNotes] = useState<string | null>(null);
   const [notesInput, setNotesInput] = useState('');
 
-  const updateFaultStatus = (faultId: string, status: FaultStatus) => {
+  const updateFaultStatus = (faultId: string, status: Fault['status']) => {
     setFaults(prev => prev.map(fault => {
       if (fault.id === faultId) {
         // If clicking the same status, revert to "none"
@@ -35,7 +35,7 @@ const RightPanel: React.FC<RightPanelProps> = ({ selectedCase, currentChat, onCa
     ));
   };
 
-  const getStatusIcon = (status: FaultStatus) => {
+  const getStatusIcon = (status: Fault['status']) => {
     switch (status) {
       case 'in-progress':
         return <Clock className="h-4 w-4 text-yellow-600" />;
@@ -48,7 +48,7 @@ const RightPanel: React.FC<RightPanelProps> = ({ selectedCase, currentChat, onCa
     }
   };
 
-  const getStatusColor = (status: FaultStatus) => {
+  const getStatusColor = (status: Fault['status']) => {
     switch (status) {
       case 'in-progress':
         return 'fault-status-in-progress';
@@ -61,7 +61,7 @@ const RightPanel: React.FC<RightPanelProps> = ({ selectedCase, currentChat, onCa
     }
   };
 
-  const getStatusButtonIcon = (status: FaultStatus) => {
+  const getStatusButtonIcon = (status: Fault['status']) => {
     switch (status) {
       case 'in-progress':
         return <Clock className="h-3 w-3" />;
@@ -74,7 +74,7 @@ const RightPanel: React.FC<RightPanelProps> = ({ selectedCase, currentChat, onCa
     }
   };
 
-  const getStatusTooltip = (status: FaultStatus) => {
+  const getStatusTooltip = (status: Fault['status']) => {
     switch (status) {
       case 'in-progress':
         return 'Mark as In Progress';
